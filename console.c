@@ -110,6 +110,12 @@ void init_cmd()
     first_time = last_time;
 }
 
+bool do_hello(int argc, char *argv[])
+{
+    return (bool) printf("Hello, World\n");
+}
+
+
 /* Add a new command */
 void add_cmd(char *name, cmd_function operation, char *documentation)
 {

@@ -81,6 +81,7 @@ static void console_init()
 {
     add_cmd("new", do_new, "                | Create new queue");
     add_cmd("free", do_free, "                | Delete queue");
+    add_cmd("hello", do_hello, "                | Print hello message");
     add_cmd("ih", do_insert_head,
             " str [n]        | Insert string str at head of queue n times. "
             "Generate random string(s) if str equals RAND. (default: n == 1)");

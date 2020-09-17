@@ -39,6 +39,8 @@ struct PELE {
 /* Initialize interpreter */
 void init_cmd();
 
+bool do_hello();
+
 /* Add a new command */
 void add_cmd(char *name, cmd_function operation, char *documentation);
 
