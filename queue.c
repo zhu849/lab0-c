@@ -15,7 +15,10 @@ queue_t *q_new()
     /* TODO: What if malloc returned NULL? */
     if (q) {
         q->head = NULL;
+        q->tail = NULL;
+        q->size = 0;
     }
+
     return q;
 }
 
@@ -53,6 +56,8 @@ bool q_insert_head(queue_t *q, char *s)
     strncpy(newh->value, s, strlen(s) + 1);
     newh->next = q->head;
     q->head = newh;
+    if (!q->tail)
+        q->tail = newh;
     q->size++;
     return true;
 }
