@@ -68,7 +68,7 @@ bool q_insert_tail(queue_t *q, char *s)
 {
     if (!q)
         return false;
-    list_elel_t *newt = malloc(sizeof(list_ele_t));
+    list_ele_t *newt = malloc(sizeof(list_ele_t));
     if (!newt)
         return false;
     newt->value = malloc(sizeof(char) * (strlen(s) + 1));
