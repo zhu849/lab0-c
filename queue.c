@@ -160,6 +160,52 @@ void q_reverse(queue_t *q)
     q->head = cursor;
 }
 
+
+void merge_sort(list_ele_t **head)
+{
+    // queue element size is less then 2
+    if (!(*head) || !((*head)->next))
+        return;
+    list_ele_t *left = *head;
+    list_ele_t *right = (*head)->next;
+    while (right && right->next) {
+        left = left->next;
+        right = right->next->next;
+    }
+    right = left->next;
+    left->next = NULL;
+    left = (*head);
+    merge_sort(&left);
+    merge_sort(&right);
+
+
+    list_ele_t *newlist = NULL;
+
+
+    while (left && right) {
+        if (strcmp(left->value, right->value) < 0) {
+            if (newlist) {
+                newlist->next = left;
+                newlist = newlist->next;
+            } else {
+                newlist = left;
+                *head = newlist;
+            }
+            left = left->next;
+        } else {
+            if (newlist) {
+                newlist->next = right;
+                newlist = newlist->next;
+            } else {
+                newlist = right;
+                *head = newlist;
+            }
+            right = right->next;
+        }
+    }
+    newlist->next = (left) ? left : right;
+}
+
 /*
  * Sort elements of queue in ascending order
  * No effect if q is NULL or empty. In addition, if q has only one
@@ -169,4 +215,12 @@ void q_sort(queue_t *q)
 {
     /* TODO: You need to write the code for this function */
     /* TODO: Remove the above comment when you are about to implement. */
+    if (!q || q->size < 2)
+        return;
+    merge_sort(&q->head);
+    // bubble_sort(&q->head,q->size);
+
+    // update q->tail
+    while (q->tail->next)
+        q->tail = q->tail->next;
 }
