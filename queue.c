@@ -57,7 +57,8 @@ bool q_insert_head(queue_t *q, char *s)
         free(newh);
         return false;
     }
-    strncpy(newh->value, s, strlen(s) + 1);
+    strncpy(newh->value, s, strlen(s));
+    newh->value[strlen(s)] = '\0';
     newh->next = q->head;
     q->head = newh;
     if (!q->tail)
@@ -85,7 +86,8 @@ bool q_insert_tail(queue_t *q, char *s)
         free(newt);
         return false;
     }
-    strncpy(newt->value, s, strlen(s) + 1);
+    strncpy(newt->value, s, strlen(s));
+    newt->value[strlen(s)] = '\0';
     newt->next = NULL;
     if (q->tail)
         q->tail->next = newt;
@@ -115,9 +117,9 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
     // sp is non-NULL, check real bufsize
     if (sp) {
         size_t realbufsize =
-            strlen(tmp->value) < bufsize ? strlen(tmp->value) : bufsize;
+            strlen(tmp->value) < bufsize ? (strlen(tmp->value) + 1) : bufsize;
         strncpy(sp, tmp->value, realbufsize);
-        sp[bufsize - 1] = '\0';
+        sp[realbufsize - 1] = '\0';
     }
     free(tmp->value);
     free(tmp);
