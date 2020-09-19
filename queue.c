@@ -108,9 +108,9 @@ bool q_insert_tail(queue_t *q, char *s)
  */
 bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
 {
-    if (!q || !(q->head)) {
+    if (!q || !(q->head))
         return false;
-    }
+
     list_ele_t *tmp = q->head;
     q->head = q->head->next;
     tmp->next = NULL;
@@ -162,7 +162,10 @@ void q_reverse(queue_t *q)
     q->head = cursor;
 }
 
-
+/*
+ * Subfunction with q_sort()
+ * Merge two partition of list
+ */
 void merge_sort(list_ele_t **head)
 {
     // queue element size is less then 2
@@ -177,13 +180,12 @@ void merge_sort(list_ele_t **head)
     right = left->next;
     left->next = NULL;
     left = (*head);
+
+    // recuresive do merge_sort
     merge_sort(&left);
     merge_sort(&right);
 
-
     list_ele_t *newlist = NULL;
-
-
     while (left && right) {
         if (strcmp(left->value, right->value) < 0) {
             if (newlist) {
@@ -215,13 +217,9 @@ void merge_sort(list_ele_t **head)
  */
 void q_sort(queue_t *q)
 {
-    /* TODO: You need to write the code for this function */
-    /* TODO: Remove the above comment when you are about to implement. */
     if (!q || q->size < 2)
         return;
     merge_sort(&q->head);
-    // bubble_sort(&q->head,q->size);
-
     // update q->tail
     while (q->tail->next)
         q->tail = q->tail->next;
